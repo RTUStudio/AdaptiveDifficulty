@@ -1,0 +1,5 @@
+# GUI title
+title: "Select difficulty"
+change: "The difficulty has been changed to [name]"
+notFound:
+  difficulty: "<red>This difficulty does not exist</red>"

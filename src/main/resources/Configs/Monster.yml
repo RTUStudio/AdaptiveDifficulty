@@ -1,0 +1,41 @@
+# List of mobs that ignore or attack player followed difficulty monster config
+# Related Difficulty.yml
+# 난이도 몬스터 구성에 따라 플레이어를 무시하거나 공격할 몹 목록
+# Difficulty.yml 관련
+monsters:
+  - BLAZE
+  - BREEZE
+  - CAVE_SPIDER
+  - CREEPER
+  - CREAKING
+  - DROWNED
+  - ELDER_GUARDIAN
+  - ENDER_DRAGON
+  - ENDERMAN
+  - ENDERMITE
+  - EVOKER
+  - GHAST
+  - GUARDIAN
+  - HOGLIN
+  - HUSK
+  - ILLUSIONER
+  - MAGMA_CUBE
+  - PHANTOM
+  - PIGLIN
+  - PIGLIN_BRUTE
+  - PILLAGER
+  - SHULKER
+  - SILVERFISH
+  - SKELETON
+  - SLIME
+  - SPIDER
+  - STRAY
+  - VEX
+  - VINDICATOR
+  - WARDEN
+  - WITCH
+  - WITHER
+  - WITHER_SKELETON
+  - ZOGLIN
+  - ZOMBIE
+  - ZOMBIE_VILLAGER

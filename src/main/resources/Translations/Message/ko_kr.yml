@@ -1,0 +1,5 @@
+# GUI 제목
+title: "난이도를 선택하세요"
+change: "난이도가 [name]으(로) 변경되었습니다"
+notFound:
+  difficulty: "<red>존재하지 않는 난이도입니다</red>"

@@ -1,0 +1,111 @@
+# 기본 난이도
+# Default difficulty
+default: "easy"
+
+peaceful:
+  displayName: "<aqua>Peaceful</aqua>"
+  player:
+    loseHunger: false
+    harmfulEffect: false
+    hardcore:
+      keepExperience: true
+      keepInventory: true
+  multiplier:
+    experience: 1.0
+    damage:
+      pvp: 1.0
+      pve: 0.1
+      fall: 0.1
+      fire: 0.1
+      suffocation: 0.1
+      drowning: 0.1
+      explosion: false
+  monster:
+    # Related to Monster.yml
+    # Monster.yml 관련
+    ignorePlayer: true
+    attackPlayer: true
+easy:
+  displayName: "<green>Easy</green>"
+  player:
+    loseHunger: true
+    harmfulEffect: true
+    hardcore:
+      keepExperience: true
+      keepInventory: true
+  multiplier:
+    experience: 1.0
+    damage:
+      pvp: 1.0
+      pve: 0.25
+      fall: 0.25
+      fire: 0.25
+      suffocation: 0.25
+      drowning: 0.25
+      explosion: true
+  monster:
+    ignorePlayer: false
+    attackPlayer: true
+normal:
+  displayName: "<yellow>Normal</yellow>"
+  player:
+    loseHunger: true
+    harmfulEffect: true
+    hardcore:
+      keepExperience: true
+      keepInventory: true
+  multiplier:
+    experience: 1.0
+    damage:
+      pvp: 1.0
+      pve: 0.5
+      fall: 0.5
+      fire: 0.5
+      suffocation: 0.5
+      drowning: 0.5
+      explosion: true
+  monster:
+    ignorePlayer: false
+    attackPlayer: true
+hard:
+  displayName: "<red>Hard</red>"
+  player:
+    loseHunger: true
+    harmfulEffect: true
+    hardcore:
+      keepExperience: true
+      keepInventory: true
+  multiplier:
+    experience: 1.0
+    damage:
+      pvp: 1.0
+      pve: 1.0
+      fall: 1.0
+      fire: 1.0
+      suffocation: 1.0
+      drowning: 1.0
+      explosion: true
+  monster:
+    ignorePlayer: false
+    attackPlayer: true
+hardcore:
+  displayName: "<dark_red>Hardcore</dark_red>"
+  player:
+    loseHunger: true
+    harmfulEffect: true
+    hardcore:
+      keepExperience: false
+      keepInventory: false
+  multiplier:
+    experience: 1.0
+    damage:
+      pvp: 1.0
+      pve: 1.0
+      fall: 1.0
+      fire: 1.0
+      suffocation: 1.0
+      drowning: 1.0
+      explosion: true
+  monster:
+    ignorePlayer: false
+    attackPlayer: true
