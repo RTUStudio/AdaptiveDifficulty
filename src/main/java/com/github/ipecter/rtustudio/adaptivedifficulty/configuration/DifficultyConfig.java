@@ -56,13 +56,13 @@ public class DifficultyConfig extends RSConfiguration<AdaptiveDifficulty> {
             boolean hardcoreKeepInventory = section.getBoolean("player.hardcore.keepInventory", true);
             // Multiplier
             // Multiplier/Damage
-            double pvp = section.getDouble("Damage.Multiplier.pvp", 1.0);
-            double pve = section.getDouble("Damage.Multiplier.pve", 1.0);
-            double fall = section.getDouble("Damage.Multiplier.fall", 1.0);
-            double fire = section.getDouble("Damage.Multiplier.fire", 1.0);
-            double suffocation = section.getDouble("Damage.Multiplier.suffocation", 1.0);
-            double drowning = section.getDouble("Damage.Multiplier.drowning", 1.0);
-            boolean explosion = section.getBoolean("Damage.Multiplier.explosion", true);
+            double pvp = section.getDouble("damage.multiplier.pvp", 1.0);
+            double pve = section.getDouble("damage.multiplier.pve", 1.0);
+            double fall = section.getDouble("damage.multiplier.fall", 1.0);
+            double fire = section.getDouble("damage.multiplier.fire", 1.0);
+            double suffocation = section.getDouble("damage.multiplier.suffocation", 1.0);
+            double drowning = section.getDouble("damage.multiplier.drowning", 1.0);
+            boolean explosion = section.getBoolean("damage.multiplier.explosion", true);
             // Monster
             boolean ignorePlayer = section.getBoolean("monster.ignorePlayer", false);
             boolean attackPlayer = section.getBoolean("monster.attackPlayer", true);
