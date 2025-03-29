@@ -1,11 +1,11 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty;
 
-import com.github.ipecter.rtustudio.adaptivedifficulty.commands.MainCommand;
+import com.github.ipecter.rtustudio.adaptivedifficulty.command.MainCommand;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.MenuConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.MonsterConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.dependency.PlaceholderAPI;
-import com.github.ipecter.rtustudio.adaptivedifficulty.listeners.*;
+import com.github.ipecter.rtustudio.adaptivedifficulty.listener.*;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;
 import kr.rtuserver.framework.bukkit.api.RSPlugin;
 import lombok.Getter;

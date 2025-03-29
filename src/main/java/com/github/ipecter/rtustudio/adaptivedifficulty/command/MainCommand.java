@@ -1,4 +1,4 @@
-package com.github.ipecter.rtustudio.adaptivedifficulty.commands;
+package com.github.ipecter.rtustudio.adaptivedifficulty.command;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
@@ -29,19 +29,22 @@ public class MainCommand extends RSCommand<AdaptiveDifficulty> {
 
     @Override
     public boolean execute(RSCommandData data) {
-        if (getSender() instanceof Player player) {
-            if (data.length(1)) {
-                DifficultyConfig.Difficulty difficulty = difficultyConfig.get(data.args(0));
-                if (difficulty != null) {
-                    manager.set(player.getUniqueId(), difficulty.name());
-                    String message = getMessage().get(getPlayer(), "change");
-                    message = message.replace("[name]", difficulty.displayName());
-                    getChat().announce(getAudience(), message);
-                } else getChat().announce(getAudience(), getMessage().get(getPlayer(), "notFound.difficulty"));
-            } else {
-                player.openInventory(new DifficultyMenu(getPlugin(), player).getInventory());
-            }
-        } else getChat().announce(getAudience(), getCommon().getMessage(getSender(), "onlyPlayer"));
+        Player player = player();
+        if (player == null) {
+            chat.announce(audience(), common.getMessage(sender(), "onlyPlayer"));
+            return true;
+        }
+        if (data.length(1)) {
+            DifficultyConfig.Difficulty difficulty = difficultyConfig.get(data.args(0));
+            if (difficulty != null) {
+                manager.set(player.getUniqueId(), difficulty.name());
+                String change = message.get(player, "change");
+                change = change.replace("[name]", difficulty.displayName());
+                chat.announce(audience(), change);
+            } else chat.announce(audience(), message.get(player, "notFound.difficulty"));
+        } else {
+            player.openInventory(new DifficultyMenu(getPlugin(), player).getInventory());
+        }
         return true;
     }
 

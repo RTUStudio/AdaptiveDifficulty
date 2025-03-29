@@ -1,4 +1,4 @@
-package com.github.ipecter.rtustudio.adaptivedifficulty.listeners;
+package com.github.ipecter.rtustudio.adaptivedifficulty.listener;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;

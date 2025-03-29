@@ -39,13 +39,9 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
         this.menuConfig = plugin.getMenuConfig();
         this.manager = plugin.getStatusManager();
         this.player = player;
-        Component title = ComponentFormatter.mini(getMessage().get(player, "title"));
+        Component title = ComponentFormatter.mini(message.get(player, "title"));
         int size = menuConfig.getLine() * 9;
-        if (MinecraftVersion.isPaper()) {
-            this.inventory = Bukkit.createInventory(this, size, title);
-        } else {
-            this.inventory = Bukkit.createInventory(this, size, ComponentFormatter.legacy(title));
-        }
+        this.inventory = createInventory(size, title);
         init();
     }
 
@@ -82,9 +78,9 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
             DifficultyConfig.Difficulty difficulty = difficultyConfig.get(icon.difficulty());
             if (difficulty != null) {
                 manager.set(player.getUniqueId(), difficulty.name());
-                String message = getMessage().get(player, "change");
-                message = message.replace("[name]", difficulty.displayName());
-                PlayerChat.of(getPlugin()).announce(player, message);
+                String change = message.get(player, "change");
+                change = change.replace("[name]", difficulty.displayName());
+                PlayerChat.of(getPlugin()).announce(player, change);
                 player.closeInventory();
             }
         }
