@@ -1,7 +1,7 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty.configuration;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
-import kr.rtuserver.framework.bukkit.api.config.RSConfiguration;
+import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -21,4 +21,5 @@ public class MonsterConfig extends RSConfiguration<AdaptiveDifficulty> {
         mobs.clear();
         mobs.addAll(getStringList("monsters", List.of()));
     }
+
 }

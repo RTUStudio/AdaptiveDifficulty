@@ -3,7 +3,7 @@ package com.github.ipecter.rtustudio.adaptivedifficulty.dependency;
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;
-import kr.rtuserver.framework.bukkit.api.dependencies.RSPlaceholder;
+import kr.rtuserver.framework.bukkit.api.dependency.RSPlaceholder;
 import org.bukkit.OfflinePlayer;
 
 public class PlaceholderAPI extends RSPlaceholder<AdaptiveDifficulty> {
@@ -31,4 +31,5 @@ public class PlaceholderAPI extends RSPlaceholder<AdaptiveDifficulty> {
         }
         return "ERROR";
     }
+
 }

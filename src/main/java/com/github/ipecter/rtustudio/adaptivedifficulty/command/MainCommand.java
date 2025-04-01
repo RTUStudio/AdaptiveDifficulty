@@ -31,17 +31,17 @@ public class MainCommand extends RSCommand<AdaptiveDifficulty> {
     public boolean execute(RSCommandData data) {
         Player player = player();
         if (player == null) {
-            chat.announce(audience(), common.getMessage(sender(), "onlyPlayer"));
+            chat().announce(audience(), message().getCommon(sender(), "onlyPlayer"));
             return true;
         }
         if (data.length(1)) {
             DifficultyConfig.Difficulty difficulty = difficultyConfig.get(data.args(0));
             if (difficulty != null) {
                 manager.set(player.getUniqueId(), difficulty.name());
-                String change = message.get(player, "change");
+                String change = message().get(player, "change");
                 change = change.replace("[name]", difficulty.displayName());
-                chat.announce(audience(), change);
-            } else chat.announce(audience(), message.get(player, "notFound.difficulty"));
+                chat().announce(audience(), change);
+            } else chat().announce(audience(), message().get(player, "notFound.difficulty"));
         } else {
             player.openInventory(new DifficultyMenu(getPlugin(), player).getInventory());
         }
@@ -59,4 +59,5 @@ public class MainCommand extends RSCommand<AdaptiveDifficulty> {
         menuConfig.reload();
         monsterConfig.reload();
     }
+
 }

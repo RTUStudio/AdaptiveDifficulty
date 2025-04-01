@@ -1,7 +1,7 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty.configuration;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
-import kr.rtuserver.framework.bukkit.api.config.RSConfiguration;
+import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
 import kr.rtuserver.yaml.configuration.ConfigurationSection;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -96,4 +96,5 @@ public class DifficultyConfig extends RSConfiguration<AdaptiveDifficulty> {
         public record Monster(boolean ignorePlayer, boolean attackPlayer) {
         }
     }
+
 }
