@@ -1,11 +1,10 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty.manager;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
+import kr.rtuserver.framework.bukkit.api.platform.JSON;
 import kr.rtuserver.framework.bukkit.api.storage.Storage;
-import kr.rtuserver.framework.bukkit.api.utility.platform.JSON;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +37,7 @@ public class StatusManager {
 
     public void set(UUID uuid, String difficulty) {
         Storage storage = plugin.getStorage();
-        storage.set("Difficulty", Pair.of("uuid", uuid.toString()), Pair.of("value", difficulty));
+        storage.set("Difficulty", Pair.of("uuid", uuid.toString()), JSON.of("value", difficulty).get());
         map.put(uuid, difficulty);
     }
 

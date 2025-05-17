@@ -28,7 +28,7 @@ public class AdaptiveDifficulty extends RSPlugin {
     @Override
     public void enable() {
         instance = this;
-        getConfigurations().initStorage("Difficulty");
+        getConfigurations().getStorage().init("Difficulty");
 
         difficultyConfig = new DifficultyConfig(this);
         menuConfig = new MenuConfig(this);

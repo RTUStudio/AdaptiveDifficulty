@@ -2,7 +2,7 @@ package com.github.ipecter.rtustudio.adaptivedifficulty.configuration;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
-import kr.rtuserver.yaml.configuration.ConfigurationSection;
+import kr.rtuserver.framework.yaml.configuration.ConfigurationSection;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

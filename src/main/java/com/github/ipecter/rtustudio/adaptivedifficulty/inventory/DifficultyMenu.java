@@ -4,14 +4,13 @@ import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.MenuConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;
+import kr.rtuserver.framework.bukkit.api.format.ComponentFormatter;
 import kr.rtuserver.framework.bukkit.api.inventory.RSInventory;
+import kr.rtuserver.framework.bukkit.api.platform.MinecraftVersion;
+import kr.rtuserver.framework.bukkit.api.player.PlayerChat;
 import kr.rtuserver.framework.bukkit.api.registry.CustomItems;
-import kr.rtuserver.framework.bukkit.api.utility.format.ComponentFormatter;
-import kr.rtuserver.framework.bukkit.api.utility.platform.MinecraftVersion;
-import kr.rtuserver.framework.bukkit.api.utility.player.PlayerChat;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -59,10 +58,10 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
             List<String> list = List.of(icon.description().split("\n"));
             if (MinecraftVersion.isPaper()) {
                 meta.displayName(displayName);
-                meta.lore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).toList());
+                if (!icon.description().isEmpty()) meta.lore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).toList());
             } else {
                 meta.setDisplayName(ComponentFormatter.legacy(displayName));
-                meta.setLore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).map(ComponentFormatter::legacy).toList());
+                if (!icon.description().isEmpty()) meta.setLore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).map(ComponentFormatter::legacy).toList());
             }
             item.setItemMeta(meta);
             inventory.setItem(i, item);
