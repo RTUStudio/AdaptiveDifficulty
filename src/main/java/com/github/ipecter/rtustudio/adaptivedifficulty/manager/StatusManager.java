@@ -23,7 +23,7 @@ public class StatusManager {
     public void addPlayer(UUID uuid) {
         String defaultDifficulty = plugin.getDifficultyConfig().getDefaultDifficulty();
         Storage storage = plugin.getStorage();
-        storage.get("Difficulty", Pair.of("uuid", uuid.toString())).thenAccept(result -> {
+        storage.get("Difficulty", JSON.of("uuid", uuid.toString())).thenAccept(result -> {
             if (result == null || result.isEmpty()) {
                 storage.add("Difficulty", JSON.of("uuid", uuid.toString()).append("value", defaultDifficulty).get());
                 map.put(uuid, defaultDifficulty);
@@ -37,7 +37,7 @@ public class StatusManager {
 
     public void set(UUID uuid, String difficulty) {
         Storage storage = plugin.getStorage();
-        storage.set("Difficulty", Pair.of("uuid", uuid.toString()), JSON.of("value", difficulty).get());
+        storage.set("Difficulty", JSON.of("uuid", uuid.toString()), JSON.of("value", difficulty));
         map.put(uuid, difficulty);
     }
 
