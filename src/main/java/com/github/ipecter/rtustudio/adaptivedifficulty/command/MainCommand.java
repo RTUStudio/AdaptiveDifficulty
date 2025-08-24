@@ -4,26 +4,27 @@ import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.MenuConfig;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.MonsterConfig;
+import com.github.ipecter.rtustudio.adaptivedifficulty.data.Difficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.inventory.DifficultyMenu;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;
 import kr.rtuserver.framework.bukkit.api.command.RSCommand;
 import kr.rtuserver.framework.bukkit.api.command.RSCommandData;
+import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
+import kr.rtuserver.framework.bukkit.api.configuration.internal.translation.message.MessageTranslation;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
 public class MainCommand extends RSCommand<AdaptiveDifficulty> {
 
+    private final RSConfiguration configuration;
     private final DifficultyConfig difficultyConfig;
-    private final MenuConfig menuConfig;
-    private final MonsterConfig monsterConfig;
     private final StatusManager manager;
 
     public MainCommand(AdaptiveDifficulty plugin) {
         super(plugin, "ad");
-        this.difficultyConfig = plugin.getDifficultyConfig();
-        this.menuConfig = plugin.getMenuConfig();
-        this.monsterConfig = plugin.getMonsterConfig();
+        this.configuration = plugin.getConfiguration();
+        this.difficultyConfig = configuration.get(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -31,33 +32,35 @@ public class MainCommand extends RSCommand<AdaptiveDifficulty> {
     public boolean execute(RSCommandData data) {
         Player player = player();
         if (player == null) {
-            chat().announce(audience(), message().getCommon(sender(), "onlyPlayer"));
+            chat().announce(message().getCommon(sender(), MessageTranslation.ONLY_PLAYER));
             return true;
         }
         if (data.length(1)) {
-            DifficultyConfig.Difficulty difficulty = difficultyConfig.get(data.args(0));
+            String difficultyStr = data.args(0);
+            Difficulty difficulty = difficultyConfig.get(difficultyStr);
             if (difficulty != null) {
-                manager.set(player.getUniqueId(), difficulty.name());
+                manager.set(player.getUniqueId(), difficultyStr);
                 String change = message().get(player, "change");
-                change = change.replace("[name]", difficulty.displayName());
-                chat().announce(audience(), change);
-            } else chat().announce(audience(), message().get(player, "notFound.difficulty"));
+                change = change.replace("[name]", difficulty.getDisplayName());
+                chat().announce(change);
+            } else chat().announce(message().get(player, "not-found.difficulty"));
         } else {
-            player.openInventory(new DifficultyMenu(getPlugin(), player).getInventory());
+            DifficultyMenu menu = new DifficultyMenu(getPlugin(), player);
+            player.openInventory(menu.getInventory());
         }
         return true;
     }
 
     @Override
     public List<String> tabComplete(RSCommandData data) {
-        return difficultyConfig.getNames();
+        return getNames();
     }
 
     @Override
     public void reload(RSCommandData data) {
-        difficultyConfig.reload();
-        menuConfig.reload();
-        monsterConfig.reload();
+        configuration.reload(DifficultyConfig.class);
+        configuration.reload(MenuConfig.class);
+        configuration.reload(MonsterConfig.class);
     }
 
 }

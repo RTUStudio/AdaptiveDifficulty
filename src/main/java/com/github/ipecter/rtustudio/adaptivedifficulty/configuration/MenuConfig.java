@@ -1,49 +1,36 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty.configuration;
 
-import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
-import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
+import com.github.ipecter.rtustudio.adaptivedifficulty.data.Icon;
+import com.github.ipecter.rtustudio.adaptivedifficulty.util.LinkedMap;
+import kr.rtuserver.configurate.objectmapping.meta.Comment;
+import kr.rtuserver.framework.bukkit.api.configuration.ConfigurationPart;
 import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class MenuConfig extends RSConfiguration<AdaptiveDifficulty> {
+@SuppressWarnings({"unused", "InnerClassMayBeStatic", "FieldMayBeFinal"})
+public class MenuConfig extends ConfigurationPart {
 
-    private final Map<Integer, Icon> icons = new HashMap<>();
     @Getter
+    @Comment("""
+            Inventory line (1-6)
+            인벤토리 줄 (1-6)
+            """)
     private int line = 3;
-
-    public MenuConfig(AdaptiveDifficulty plugin) {
-        super(plugin, "Menu.yml", null);
-        setup(this);
-    }
+    private Map<Integer, Icon> icons = LinkedMap.of(
+            11, new Icon("peaceful", "Vanilla peaceful difficulty", "minecraft:nether_star"),
+            12, new Icon("easy", "Vanilla easy difficulty", "minecraft:nether_star"),
+            13, new Icon("normal", "Vanilla normal difficulty", "minecraft:nether_star"),
+            14, new Icon("hard", "Vanilla hard difficulty", "minecraft:nether_star"),
+            15, new Icon(
+                    "hardcore",
+                    "Vanilla hardcore mode\nIt will remove your experience and inventory when you die",
+                    "minecraft:nether_star"
+            )
+    );
 
     public Icon getIcon(Integer slot) {
         return icons.get(slot);
-    }
-
-    private void init() {
-        icons.clear();
-        line = getInt("line", line, """
-                Inventory line (1-6)
-                인벤토리 줄 (1-6)""");
-        for (String key : getConfigurationSection("icon").getKeys(false)) {
-            try {
-                String difficulty = getString("icon." + key + ".difficulty", "");
-                if (difficulty.isEmpty()) continue;
-                String description = getString("icon." + key + ".description", "");
-                String item = getString("icon." + key + ".item", "");
-                if (item.isEmpty()) continue;
-                Icon icon = new Icon(difficulty, description, item);
-                icons.put(Integer.parseInt(key), icon);
-            } catch (NumberFormatException e) {
-                getPlugin().console("<red>Inventory slot must be a number</red>");
-                getPlugin().console("<red>인벤토리 슬롯은 숫자여야 합니다</red>");
-            }
-        }
-    }
-
-    public record Icon(String difficulty, String description, String item) {
     }
 
 }

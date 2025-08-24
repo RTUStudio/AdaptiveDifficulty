@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+@SuppressWarnings("unused")
 public class PlayerJoinQuit extends RSListener<AdaptiveDifficulty> {
 
     private final StatusManager manager;

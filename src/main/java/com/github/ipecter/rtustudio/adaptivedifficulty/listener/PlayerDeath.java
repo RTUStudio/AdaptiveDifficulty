@@ -2,6 +2,7 @@ package com.github.ipecter.rtustudio.adaptivedifficulty.listener;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
+import com.github.ipecter.rtustudio.adaptivedifficulty.data.Difficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;
 import kr.rtuserver.framework.bukkit.api.listener.RSListener;
 import org.bukkit.entity.Player;
@@ -9,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+@SuppressWarnings("unused")
 public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
 
     private final DifficultyConfig config;
@@ -23,9 +25,9 @@ public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        DifficultyConfig.Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
+        Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
         if (difficulty == null) return;
-        if (!difficulty.player().hardcore().keepExperience()) {
+        if (!difficulty.getPlayer().getHardcore().isKeepExperience()) {
             player.setLevel(0);
             player.setExp(0.0F);
             e.setDroppedExp(0);
@@ -35,7 +37,7 @@ public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
             e.setShouldDropExperience(false);
             e.setKeepLevel(false);
         }
-        if (!difficulty.player().hardcore().keepInventory()) {
+        if (!difficulty.getPlayer().getHardcore().isKeepInventory()) {
             player.getInventory().clear();
             e.setKeepInventory(false);
             e.getDrops().clear();

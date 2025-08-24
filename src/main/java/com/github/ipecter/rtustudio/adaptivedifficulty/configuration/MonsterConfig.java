@@ -1,25 +1,50 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty.configuration;
 
-import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
-import kr.rtuserver.framework.bukkit.api.configuration.RSConfiguration;
+import kr.rtuserver.framework.bukkit.api.configuration.ConfigurationPart;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MonsterConfig extends RSConfiguration<AdaptiveDifficulty> {
+public class MonsterConfig extends ConfigurationPart {
 
     @Getter
-    private final List<String> mobs = new ArrayList<>();
-
-    public MonsterConfig(AdaptiveDifficulty plugin) {
-        super(plugin, "Monster.yml", null);
-        setup(this);
-    }
-
-    private void init() {
-        mobs.clear();
-        mobs.addAll(getStringList("monsters", List.of()));
-    }
+    private final List<String> mobs = List.of(
+            "BLAZE",
+            "BREEZE",
+            "CAVE_SPIDER",
+            "CREEPER",
+            "CREAKING",
+            "DROWNED",
+            "ELDER_GUARDIAN",
+            "ENDER_DRAGON",
+            "ENDERMAN",
+            "ENDERMITE",
+            "EVOKER",
+            "GHAST",
+            "GUARDIAN",
+            "HOGLIN",
+            "HUSK",
+            "ILLUSIONER",
+            "MAGMA_CUBE",
+            "PHANTOM",
+            "PIGLIN",
+            "PIGLIN_BRUTE",
+            "PILLAGER",
+            "SHULKER",
+            "SILVERFISH",
+            "SKELETON",
+            "SLIME",
+            "SPIDER",
+            "STRAY",
+            "VEX",
+            "VINDICATOR",
+            "WARDEN",
+            "WITCH",
+            "WITHER",
+            "WITHER_SKELETON",
+            "ZOGLIN",
+            "ZOMBIE",
+            "ZOMBIE_VILLAGER"
+    );
 
 }

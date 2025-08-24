@@ -2,6 +2,7 @@ package com.github.ipecter.rtustudio.adaptivedifficulty.dependency;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
+import com.github.ipecter.rtustudio.adaptivedifficulty.data.Difficulty;
 import com.github.ipecter.rtustudio.adaptivedifficulty.manager.StatusManager;
 import kr.rtuserver.framework.bukkit.api.integration.RSPlaceholder;
 import org.bukkit.OfflinePlayer;
@@ -24,9 +25,9 @@ public class PlaceholderAPI extends RSPlaceholder<AdaptiveDifficulty> {
                 return manager.get(offlinePlayer.getUniqueId());
             }
             case "display" -> {
-                DifficultyConfig.Difficulty difficulty = config.get(manager.get(offlinePlayer.getUniqueId()));
+                Difficulty difficulty = config.get(manager.get(offlinePlayer.getUniqueId()));
                 if (difficulty == null) return "";
-                return difficulty.displayName();
+                return difficulty.getDisplayName();
             }
         }
         return "ERROR";
