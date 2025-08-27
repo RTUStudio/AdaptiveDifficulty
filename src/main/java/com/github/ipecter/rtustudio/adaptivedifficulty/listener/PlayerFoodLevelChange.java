@@ -17,7 +17,7 @@ public class PlayerFoodLevelChange extends RSListener<AdaptiveDifficulty> {
 
     public PlayerFoodLevelChange(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -27,7 +27,7 @@ public class PlayerFoodLevelChange extends RSListener<AdaptiveDifficulty> {
             if (player.getFoodLevel() >= e.getFoodLevel()) {
                 Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
                 if (difficulty == null) return;
-                if (!difficulty.getPlayer().isLoseHunger()) e.setCancelled(true);
+                if (!difficulty.player().loseHunger()) e.setCancelled(true);
             }
         }
     }

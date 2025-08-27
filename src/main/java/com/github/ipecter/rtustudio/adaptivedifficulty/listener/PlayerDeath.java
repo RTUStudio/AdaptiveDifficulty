@@ -18,7 +18,7 @@ public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
 
     public PlayerDeath(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -27,7 +27,7 @@ public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
         Player player = e.getEntity();
         Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
         if (difficulty == null) return;
-        if (!difficulty.getPlayer().getHardcore().isKeepExperience()) {
+        if (!difficulty.player().hardcore().keepExperience()) {
             player.setLevel(0);
             player.setExp(0.0F);
             e.setDroppedExp(0);
@@ -37,7 +37,7 @@ public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
             e.setShouldDropExperience(false);
             e.setKeepLevel(false);
         }
-        if (!difficulty.getPlayer().getHardcore().isKeepInventory()) {
+        if (!difficulty.player().hardcore().keepInventory()) {
             player.getInventory().clear();
             e.setKeepInventory(false);
             e.getDrops().clear();

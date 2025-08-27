@@ -17,7 +17,7 @@ public class MenuConfig extends ConfigurationPart {
             인벤토리 줄 (1-6)
             """)
     private int line = 3;
-    private Map<Integer, Icon> icons = LinkedMap.of(
+    private Map<Integer, Icon> icons = Map.of(
             11, new Icon("peaceful", "Vanilla peaceful difficulty", "minecraft:nether_star"),
             12, new Icon("easy", "Vanilla easy difficulty", "minecraft:nether_star"),
             13, new Icon("normal", "Vanilla normal difficulty", "minecraft:nether_star"),

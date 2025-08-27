@@ -31,7 +31,7 @@ public class PlayerPotionEffect extends RSListener<AdaptiveDifficulty> {
 
     public PlayerPotionEffect(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -41,7 +41,7 @@ public class PlayerPotionEffect extends RSListener<AdaptiveDifficulty> {
             if (e.getAction() == EntityPotionEffectEvent.Action.ADDED) {
                 Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
                 if (difficulty == null) return;
-                if (!difficulty.getPlayer().isHarmfulEffect()) {
+                if (!difficulty.player().harmfulEffect()) {
                     for (String effect : harmfulEffects) {
                         if (effect.equalsIgnoreCase(e.getModifiedType().getName())) {
                             e.setCancelled(true);

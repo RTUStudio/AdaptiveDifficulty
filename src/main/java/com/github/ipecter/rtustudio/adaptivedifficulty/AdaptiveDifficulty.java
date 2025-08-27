@@ -15,24 +15,16 @@ public class AdaptiveDifficulty extends RSPlugin {
     @Getter
     private static AdaptiveDifficulty instance;
     @Getter
-    private DifficultyConfig difficultyConfig;
-    @Getter
-    private MenuConfig menuConfig;
-    @Getter
-    private MonsterConfig monsterConfig;
-    @Getter
     private StatusManager statusManager;
-
-    private PlaceholderAPI placeholder;
 
     @Override
     public void enable() {
         instance = this;
-        getConfiguration().getStorage().init("Difficulty");
+        initStorage("Difficulty");
 
-        getConfiguration().register(DifficultyConfig.class, "Difficulty.yml");
-        getConfiguration().register(MenuConfig.class, "Menu.yml");
-        getConfiguration().register(MonsterConfig.class, "Monster.yml");
+        registerConfiguration(DifficultyConfig.class, "Difficulty");
+        registerConfiguration(MenuConfig.class, "Menu");
+        registerConfiguration(MonsterConfig.class, "Monster");
 
         statusManager = new StatusManager(this);
 
@@ -47,16 +39,6 @@ public class AdaptiveDifficulty extends RSPlugin {
 
         registerCommand(new MainCommand(this), true);
 
-        if (getFramework().isEnabledDependency("PlaceholderAPI")) {
-            placeholder = new PlaceholderAPI(this);
-            placeholder.register();
-        }
-    }
-
-    @Override
-    public void disable() {
-        if (getFramework().isEnabledDependency("PlaceholderAPI")) {
-            placeholder.unregister();
-        }
+        registerIntegration(new PlaceholderAPI(this));
     }
 }

@@ -19,8 +19,8 @@ public class EntityTargetPlayer extends RSListener<AdaptiveDifficulty> {
 
     public EntityTargetPlayer(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.difficultyConfig = plugin.getDifficultyConfig();
-        this.monsterConfig = plugin.getMonsterConfig();
+        this.difficultyConfig = plugin.getConfiguration(DifficultyConfig.class);
+        this.monsterConfig = plugin.getConfiguration(MonsterConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -29,9 +29,9 @@ public class EntityTargetPlayer extends RSListener<AdaptiveDifficulty> {
         if (e.getTarget() instanceof Player player) {
             Difficulty difficulty = difficultyConfig.get(manager.get(player.getUniqueId()));
             if (difficulty == null) return;
-            if (difficulty.getMonster().isAttackPlayer())
+            if (difficulty.monster().attackPlayer())
                 if (e.getReason() == EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY) return;
-            if (difficulty.getMonster().isIgnorePlayer()) {
+            if (difficulty.monster().ignorePlayer()) {
                 for (String mob : monsterConfig.getMobs()) {
                     if (mob.equalsIgnoreCase(e.getEntity().getType().name())) {
                         e.setCancelled(true);

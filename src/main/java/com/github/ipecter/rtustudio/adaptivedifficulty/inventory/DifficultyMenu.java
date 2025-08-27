@@ -36,8 +36,8 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
 
     public DifficultyMenu(AdaptiveDifficulty plugin, Player player) {
         super(plugin);
-        this.difficultyConfig = plugin.getDifficultyConfig();
-        this.menuConfig = plugin.getMenuConfig();
+        this.difficultyConfig = plugin.getConfiguration(DifficultyConfig.class);
+        this.menuConfig = plugin.getConfiguration(MenuConfig.class);
         this.manager = plugin.getStatusManager();
         this.player = player;
         Component title = ComponentFormatter.mini(message().get(player, "title"));
@@ -50,21 +50,21 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
         for (int i = 0; i < menuConfig.getLine() * 9; i++) {
             Icon icon = menuConfig.getIcon(i);
             if (icon == null) continue;
-            Difficulty difficulty = difficultyConfig.get(icon.getDifficulty());
+            Difficulty difficulty = difficultyConfig.get(icon.difficulty());
             if (difficulty == null) continue;
-            ItemStack item = CustomItems.from(icon.getItem());
+            ItemStack item = CustomItems.from(icon.item());
             if (item == null) continue;
             ItemMeta meta = item.getItemMeta();
             if (meta == null) continue;
-            Component displayName = ComponentFormatter.mini("<!italic><white>" + difficulty.getDisplayName());
-            List<String> list = List.of(icon.getDescription().split("\n"));
+            Component displayName = ComponentFormatter.mini("<!italic><white>" + difficulty.displayName());
+            List<String> list = List.of(icon.description().split("\n"));
             if (MinecraftVersion.isPaper()) {
                 meta.displayName(displayName);
-                if (!icon.getDescription().isEmpty())
+                if (!icon.description().isEmpty())
                     meta.lore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).toList());
             } else {
                 meta.setDisplayName(ComponentFormatter.legacy(displayName));
-                if (!icon.getDescription().isEmpty())
+                if (!icon.description().isEmpty())
                     meta.setLore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).map(ComponentFormatter::legacy).toList());
             }
             item.setItemMeta(meta);
@@ -78,12 +78,12 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
         int slot = click.slot();
         Icon icon = menuConfig.getIcon(slot);
         if (icon != null) {
-            String difficultyStr = icon.getDifficulty();
+            String difficultyStr = icon.difficulty();
             Difficulty difficulty = difficultyConfig.get(difficultyStr);
             if (difficulty != null) {
                 manager.set(player.getUniqueId(), difficultyStr);
                 String change = message().get(player, "change");
-                change = change.replace("[name]", difficulty.getDisplayName());
+                change = change.replace("[name]", difficulty.displayName());
                 PlayerChat.of(getPlugin()).announce(player, change);
                 player.closeInventory();
             }

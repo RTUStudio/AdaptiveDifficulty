@@ -1,26 +1,31 @@
 package com.github.ipecter.rtustudio.adaptivedifficulty.manager;
 
 import com.github.ipecter.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
+import com.github.ipecter.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
 import kr.rtuserver.framework.bukkit.api.platform.JSON;
 import kr.rtuserver.framework.bukkit.api.storage.Storage;
-import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class StatusManager {
 
     private final AdaptiveDifficulty plugin;
+    private final DifficultyConfig difficultyConfig;
     private final Map<UUID, String> map = new HashMap<>();
 
+    public StatusManager(AdaptiveDifficulty plugin) {
+        this.plugin = plugin;
+        this.difficultyConfig = plugin.getConfiguration(DifficultyConfig.class);
+    }
+
     public String get(UUID uuid) {
-        return map.getOrDefault(uuid, plugin.getDifficultyConfig().getDefaultDifficulty());
+        return map.getOrDefault(uuid, difficultyConfig.getDefaultDifficulty());
     }
 
     public void addPlayer(UUID uuid) {
-        String defaultDifficulty = plugin.getDifficultyConfig().getDefaultDifficulty();
+        String defaultDifficulty = difficultyConfig.getDefaultDifficulty();
         Storage storage = plugin.getStorage();
         storage.get("Difficulty", JSON.of("uuid", uuid.toString())).thenAccept(result -> {
             if (result == null || result.isEmpty()) {

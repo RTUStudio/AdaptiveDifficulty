@@ -28,7 +28,7 @@ public class PlayerDamageByEntity extends RSListener<AdaptiveDifficulty> {
 
     public PlayerDamageByEntity(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -37,7 +37,7 @@ public class PlayerDamageByEntity extends RSListener<AdaptiveDifficulty> {
         if (e.getEntity() instanceof Player player) {
             Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
             if (difficulty == null) return;
-            if (!difficulty.getDamage().isExplosion()) {
+            if (!difficulty.damage().explosion()) {
                 for (String type : explosions) {
                     if (type.equalsIgnoreCase(e.getDamager().getType().name())) {
                         e.setCancelled(true);
@@ -47,12 +47,12 @@ public class PlayerDamageByEntity extends RSListener<AdaptiveDifficulty> {
             }
             if (e.getDamager() instanceof Projectile projectile) {
                 if (projectile.getShooter() instanceof Player) {
-                    e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getPvp());
-                } else e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getPve());
+                    e.setDamage(e.getDamage() * difficulty.damage().multiplier().pvp());
+                } else e.setDamage(e.getDamage() * difficulty.damage().multiplier().pve());
             } else if (e.getDamager() instanceof Player) {
-                e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getPvp());
+                e.setDamage(e.getDamage() * difficulty.damage().multiplier().pvp());
             } else {
-                e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getPve());
+                e.setDamage(e.getDamage() * difficulty.damage().multiplier().pve());
             }
         }
     }

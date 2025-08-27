@@ -17,14 +17,12 @@ import java.util.List;
 
 public class MainCommand extends RSCommand<AdaptiveDifficulty> {
 
-    private final RSConfiguration configuration;
     private final DifficultyConfig difficultyConfig;
     private final StatusManager manager;
 
     public MainCommand(AdaptiveDifficulty plugin) {
         super(plugin, "ad");
-        this.configuration = plugin.getConfiguration();
-        this.difficultyConfig = configuration.get(DifficultyConfig.class);
+        this.difficultyConfig = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -41,7 +39,7 @@ public class MainCommand extends RSCommand<AdaptiveDifficulty> {
             if (difficulty != null) {
                 manager.set(player.getUniqueId(), difficultyStr);
                 String change = message().get(player, "change");
-                change = change.replace("[name]", difficulty.getDisplayName());
+                change = change.replace("[name]", difficulty.displayName());
                 chat().announce(change);
             } else chat().announce(message().get(player, "not-found.difficulty"));
         } else {
@@ -53,14 +51,14 @@ public class MainCommand extends RSCommand<AdaptiveDifficulty> {
 
     @Override
     public List<String> tabComplete(RSCommandData data) {
-        return getNames();
+        return difficultyConfig.getNames();
     }
 
     @Override
     public void reload(RSCommandData data) {
-        configuration.reload(DifficultyConfig.class);
-        configuration.reload(MenuConfig.class);
-        configuration.reload(MonsterConfig.class);
+        getPlugin().reloadConfiguration(DifficultyConfig.class);
+        getPlugin().reloadConfiguration(MenuConfig.class);
+        getPlugin().reloadConfiguration(MonsterConfig.class);
     }
 
 }

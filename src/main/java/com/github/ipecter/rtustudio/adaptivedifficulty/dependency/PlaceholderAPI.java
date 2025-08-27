@@ -14,7 +14,7 @@ public class PlaceholderAPI extends RSPlaceholder<AdaptiveDifficulty> {
 
     public PlaceholderAPI(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -27,7 +27,7 @@ public class PlaceholderAPI extends RSPlaceholder<AdaptiveDifficulty> {
             case "display" -> {
                 Difficulty difficulty = config.get(manager.get(offlinePlayer.getUniqueId()));
                 if (difficulty == null) return "";
-                return difficulty.getDisplayName();
+                return difficulty.displayName();
             }
         }
         return "ERROR";

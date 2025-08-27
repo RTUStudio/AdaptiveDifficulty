@@ -19,70 +19,70 @@ public class DifficultyConfig extends ConfigurationPart {
     private String defaultDifficulty = "easy";
 
     private Map<String, Difficulty> difficulties = LinkedMap.of(
-            "peaceful", Difficulty.of(
+            "peaceful", new Difficulty(
                     "<aqua>Peaceful</aqua>",
-                    Difficulty.Player.of(
-                            Difficulty.Player.Hardcore.of(true, true),
+                    new Difficulty.Player(
+                            new Difficulty.Player.Hardcore(true, true),
                             false, false, 1.0
                     ),
-                    Difficulty.Damage.of(
-                            Difficulty.Damage.Multiplier.of(
+                    new Difficulty.Damage(
+                            new Difficulty.Damage.Multiplier(
                                     1.0, 0.1, 0.1, 0.1, 0.1, 0.1
                             ), false
                     ),
-                    Difficulty.Monster.of(true, true)
+                    new Difficulty.Monster(true, true)
             ),
-            "easy", Difficulty.of(
+            "easy", new Difficulty(
                     "<green>Easy</green>",
-                    Difficulty.Player.of(
-                            Difficulty.Player.Hardcore.of(true, true),
+                    new Difficulty.Player(
+                            new Difficulty.Player.Hardcore(true, true),
                             true, true, 1.0
                     ),
-                    Difficulty.Damage.of(
-                            Difficulty.Damage.Multiplier.of(
+                    new Difficulty.Damage(
+                            new Difficulty.Damage.Multiplier(
                                     1.0, 0.25, 0.25, 0.25, 0.25, 0.25
                             ), true
                     ),
-                    Difficulty.Monster.of(false, true)
+                    new Difficulty.Monster(false, true)
             ),
-            "normal", Difficulty.of(
+            "normal", new Difficulty(
                     "<yellow>Normal</yellow>",
-                    Difficulty.Player.of(
-                            Difficulty.Player.Hardcore.of(true, true),
+                    new Difficulty.Player(
+                            new Difficulty.Player.Hardcore(true, true),
                             true, true, 1.0
                     ),
-                    Difficulty.Damage.of(
-                            Difficulty.Damage.Multiplier.of(
+                    new Difficulty.Damage(
+                            new Difficulty.Damage.Multiplier(
                                     1.0, 0.5, 0.5, 0.5, 0.5, 0.5
                             ), true
                     ),
-                    Difficulty.Monster.of(false, true)
+                    new Difficulty.Monster(false, true)
             ),
-            "hard", Difficulty.of(
+            "hard", new Difficulty(
                     "<red>Hard</red>",
-                    Difficulty.Player.of(
-                            Difficulty.Player.Hardcore.of(true, true),
+                    new Difficulty.Player(
+                            new Difficulty.Player.Hardcore(true, true),
                             true, true, 1.0
                     ),
-                    Difficulty.Damage.of(
-                            Difficulty.Damage.Multiplier.of(
+                    new Difficulty.Damage(
+                            new Difficulty.Damage.Multiplier(
                                     1.0, 1.0, 1.0, 1.0, 1.0, 1.0
                             ), true
                     ),
-                    Difficulty.Monster.of(false, true)
+                    new Difficulty.Monster(false, true)
             ),
-            "hardcore", Difficulty.of(
+            "hardcore", new Difficulty(
                     "<dark_red>Hardcore</dark_red>",
-                    Difficulty.Player.of(
-                            Difficulty.Player.Hardcore.of(false, false),
+                    new Difficulty.Player(
+                            new Difficulty.Player.Hardcore(false, false),
                             true, true, 1.0
                     ),
-                    Difficulty.Damage.of(
-                            Difficulty.Damage.Multiplier.of(
+                    new Difficulty.Damage(
+                            new Difficulty.Damage.Multiplier(
                                     1.0, 1.0, 1.0, 1.0, 1.0, 1.0
                             ), true
                     ),
-                    Difficulty.Monster.of(false, true)
+                    new Difficulty.Monster(false, true)
             )
     );
 

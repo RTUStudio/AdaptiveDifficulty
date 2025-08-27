@@ -17,7 +17,7 @@ public class EntityDeathByPlayer extends RSListener<AdaptiveDifficulty> {
 
     public EntityDeathByPlayer(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -27,7 +27,7 @@ public class EntityDeathByPlayer extends RSListener<AdaptiveDifficulty> {
         if (player != null) {
             Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
             if (difficulty == null) return;
-            e.setDroppedExp((int) Math.round(e.getDroppedExp() * difficulty.getPlayer().getExperience()));
+            e.setDroppedExp((int) Math.round(e.getDroppedExp() * difficulty.player().experience()));
         }
     }
 

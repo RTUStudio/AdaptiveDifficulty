@@ -17,7 +17,7 @@ public class PlayerDamage extends RSListener<AdaptiveDifficulty> {
 
     public PlayerDamage(AdaptiveDifficulty plugin) {
         super(plugin);
-        this.config = plugin.getDifficultyConfig();
+        this.config = plugin.getConfiguration(DifficultyConfig.class);
         this.manager = plugin.getStatusManager();
     }
 
@@ -27,11 +27,11 @@ public class PlayerDamage extends RSListener<AdaptiveDifficulty> {
             Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
             if (difficulty == null) return;
             switch (e.getCause()) {
-                case DROWNING -> e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getDrowning());
-                case FIRE, FIRE_TICK -> e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getFire());
-                case FALL -> e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getFall());
+                case DROWNING -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().drowning());
+                case FIRE, FIRE_TICK -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().fire());
+                case FALL -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().fall());
                 case SUFFOCATION ->
-                        e.setDamage(e.getDamage() * difficulty.getDamage().getMultiplier().getSuffocation());
+                        e.setDamage(e.getDamage() * difficulty.damage().multiplier().suffocation());
             }
         }
     }
