@@ -18,12 +18,12 @@ public class PlayerJoinQuit extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    private void onJoin(PlayerJoinEvent e) {
         manager.addPlayer(e.getPlayer().getUniqueId());
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
+    private void onQuit(PlayerQuitEvent e) {
         manager.removePlayer(e.getPlayer().getUniqueId());
     }
 

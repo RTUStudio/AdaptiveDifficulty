@@ -22,13 +22,12 @@ public class EntityDeathByPlayer extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler
-    public void onMobDeath(EntityDeathEvent e) {
+    private void onMobDeath(EntityDeathEvent e) {
         Player player = e.getEntity().getKiller();
-        if (player != null) {
-            Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
-            if (difficulty == null) return;
-            e.setDroppedExp((int) Math.round(e.getDroppedExp() * difficulty.player().experience()));
-        }
+        if (player == null) return;
+        Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
+        if (difficulty == null) return;
+        e.setDroppedExp((int) Math.round(e.getDroppedExp() * difficulty.player().experience()));
     }
 
 }

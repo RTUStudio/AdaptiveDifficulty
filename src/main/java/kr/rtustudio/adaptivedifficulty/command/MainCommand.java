@@ -7,8 +7,8 @@ import kr.rtustudio.adaptivedifficulty.configuration.MonsterConfig;
 import kr.rtustudio.adaptivedifficulty.data.Difficulty;
 import kr.rtustudio.adaptivedifficulty.inventory.DifficultyMenu;
 import kr.rtustudio.adaptivedifficulty.manager.StatusManager;
-import kr.rtustudio.framework.bukkit.api.command.RSCommand;
 import kr.rtustudio.framework.bukkit.api.command.CommandArgs;
+import kr.rtustudio.framework.bukkit.api.command.RSCommand;
 import org.bukkit.entity.Player;
 
 import java.util.List;

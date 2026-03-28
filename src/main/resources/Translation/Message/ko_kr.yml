@@ -3,14 +3,19 @@ menu:
   change: "<green>난이도가 {name}(으)로 변경되었습니다</green>"
   difficulty:
     peaceful:
+      name: "<aqua>평화로움</aqua>"
       description: "바닐라 피스풀 난이도"
     easy:
+      name: "<green>쉬움</green>"
       description: "바닐라 이지 난이도"
     normal:
+      name: "<yellow>보통</yellow>"
       description: "바닐라 노말 난이도"
     hard:
+      name: "<red>어려움</red>"
       description: "바닐라 하드 난이도"
     hardcore:
+      name: "<dark_red>하드코어</dark_red>"
       description: "바닐라 하드코어 모드\n사망 시 경험치와 인벤토리를 잃습니다"
 not-found:
   difficulty: "<red>존재하지 않는 난이도입니다</red>"

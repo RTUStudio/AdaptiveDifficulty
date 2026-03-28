@@ -25,17 +25,18 @@ public class EntityTargetPlayer extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler
-    public void onTarget(EntityTargetEvent e) {
+    private void onTarget(EntityTargetEvent e) {
         if (e.getTarget() instanceof Player player) {
             Difficulty difficulty = difficultyConfig.get(manager.get(player.getUniqueId()));
             if (difficulty == null) return;
-            if (difficulty.monster().attackPlayer())
-                if (e.getReason() == EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY) return;
-            if (difficulty.monster().ignorePlayer()) {
-                if (monsterConfig.getMobs().contains(e.getEntityType())) {
-                    e.setCancelled(true);
-                    e.setTarget(null);
-                }
+            
+            if (difficulty.monster().attackPlayer() && e.getReason() == EntityTargetEvent.TargetReason.TARGET_ATTACKED_ENTITY) {
+                return;
+            }
+            
+            if (difficulty.monster().ignorePlayer() && monsterConfig.getMobs().contains(e.getEntityType())) {
+                e.setCancelled(true);
+                e.setTarget(null);
             }
         }
     }

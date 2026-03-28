@@ -22,7 +22,7 @@ public class PlayerDamage extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageEvent e) {
+    private void onPlayerDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player player) {
             Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
             if (difficulty == null) return;
@@ -30,8 +30,9 @@ public class PlayerDamage extends RSListener<AdaptiveDifficulty> {
                 case DROWNING -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().drowning());
                 case FIRE, FIRE_TICK -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().fire());
                 case FALL -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().fall());
-                case SUFFOCATION ->
-                        e.setDamage(e.getDamage() * difficulty.damage().multiplier().suffocation());
+                case SUFFOCATION -> e.setDamage(e.getDamage() * difficulty.damage().multiplier().suffocation());
+                default -> {
+                }
             }
         }
     }

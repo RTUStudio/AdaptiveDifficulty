@@ -1,4 +1,4 @@
-package kr.rtustudio.adaptivedifficulty.dependency;
+package kr.rtustudio.adaptivedifficulty.integration;
 
 import kr.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import kr.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;

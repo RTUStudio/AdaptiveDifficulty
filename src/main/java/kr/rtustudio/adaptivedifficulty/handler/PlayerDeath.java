@@ -23,7 +23,7 @@ public class PlayerDeath extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerDeath(PlayerDeathEvent e) {
+    private void onPlayerDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
         if (difficulty == null) return;

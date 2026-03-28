@@ -22,13 +22,12 @@ public class PlayerFoodLevelChange extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onFoodChange(FoodLevelChangeEvent e) {
+    private void onFoodChange(FoodLevelChangeEvent e) {
         if (e.getEntity() instanceof Player player) {
-            if (player.getFoodLevel() >= e.getFoodLevel()) {
-                Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
-                if (difficulty == null) return;
-                if (!difficulty.player().loseHunger()) e.setCancelled(true);
-            }
+            if (player.getFoodLevel() < e.getFoodLevel()) return;
+            Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
+            if (difficulty == null) return;
+            if (!difficulty.player().loseHunger()) e.setCancelled(true);
         }
     }
 

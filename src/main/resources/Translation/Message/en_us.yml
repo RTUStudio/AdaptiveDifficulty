@@ -1,5 +1,16 @@
-# GUI title
-title: "Select difficulty"
-change: "The difficulty has been changed to [name]"
+menu:
+  title: "Select Difficulty"
+  change: "<green>Difficulty has been changed to {name}</green>"
+  difficulty:
+    peaceful:
+      description: "Vanilla Peaceful difficulty"
+    easy:
+      description: "Vanilla Easy difficulty"
+    normal:
+      description: "Vanilla Normal difficulty"
+    hard:
+      description: "Vanilla Hard difficulty"
+    hardcore:
+      description: "Vanilla Hardcore mode\nYou lose experience and inventory on death"
 not-found:
   difficulty: "<red>This difficulty does not exist</red>"

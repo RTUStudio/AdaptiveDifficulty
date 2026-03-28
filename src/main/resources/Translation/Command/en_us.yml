@@ -1,2 +1,4 @@
 ad:
-  name: ad
+  name: "ad"
+  description: "Adaptive difficulty management command."
+  usage: "/ad [difficultyID]"

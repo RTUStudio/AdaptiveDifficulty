@@ -1,7 +1,5 @@
 package kr.rtustudio.adaptivedifficulty.configuration;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-
 import kr.rtustudio.adaptivedifficulty.data.Difficulty;
 import kr.rtustudio.adaptivedifficulty.utility.LinkedMap;
 import kr.rtustudio.configurate.model.ConfigurationPart;
@@ -14,7 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@SuppressWarnings({"unused", "InnerClassMayBeStatic", "FieldMayBeFinal"})
+@SuppressWarnings({
+        "unused",
+        "CanBeFinal",
+        "FieldCanBeLocal",
+        "FieldMayBeFinal",
+        "InnerClassMayBeStatic"
+})
 public class DifficultyConfig extends ConfigurationPart {
 
     @Getter
@@ -90,7 +94,7 @@ public class DifficultyConfig extends ConfigurationPart {
 
     @NotNull
     public List<String> getNames() {
-        return new ObjectArrayList<>(difficulties.keySet());
+        return new ArrayList<>(difficulties.keySet());
     }
 
     public boolean exists(String id) {

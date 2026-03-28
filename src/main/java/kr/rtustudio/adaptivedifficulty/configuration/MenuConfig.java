@@ -1,25 +1,28 @@
 package kr.rtustudio.adaptivedifficulty.configuration;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-
 import kr.rtustudio.adaptivedifficulty.data.Icon;
+import kr.rtustudio.configurate.model.ConfigurationPart;
 import kr.rtustudio.configurate.objectmapping.ConfigSerializable;
 import kr.rtustudio.configurate.objectmapping.meta.Comment;
 import kr.rtustudio.configurate.objectmapping.meta.PostProcess;
-import kr.rtustudio.configurate.model.ConfigurationPart;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Logger;
+import java.util.*;
 
+
+@Slf4j(topic = "AdaptiveDifficulty")
 @Getter
-@SuppressWarnings({"unused", "CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal", "InnerClassMayBeStatic"})
+@SuppressWarnings({
+        "unused",
+        "CanBeFinal",
+        "FieldCanBeLocal",
+        "FieldMayBeFinal",
+        "InnerClassMayBeStatic"
+})
 public class MenuConfig extends ConfigurationPart {
 
     @Comment("""
@@ -44,22 +47,21 @@ public class MenuConfig extends ConfigurationPart {
             new Action(Action.State.SELECT, 15, List.of(ClickType.LEFT))
     );
 
-    private transient Set<Integer> disabledSlots = new ObjectOpenHashSet<>();
+    private transient Set<Integer> disabledSlots = new HashSet<>();
 
     @PostProcess
     public void check() {
         disabledSlots.clear();
-        Map<Integer, Map<ClickType, Action.State>> slotClickMap = new Object2ObjectOpenHashMap<>();
+        Map<Integer, Map<ClickType, Action.State>> slotClickMap = new HashMap<>();
 
         for (Action action : actions) {
             int slot = action.slot();
-            Map<ClickType, Action.State> clickMap = slotClickMap.computeIfAbsent(slot, k -> new Object2ObjectOpenHashMap<>());
+            Map<ClickType, Action.State> clickMap = slotClickMap.computeIfAbsent(slot, k -> new HashMap<>());
 
             for (ClickType click : action.clickTypes()) {
                 if (clickMap.containsKey(click)) {
-                    Logger.getLogger("AdaptiveDifficulty").warning(
-                            "[MenuConfig] Duplicate slot/clickType: slot=" + slot + ", click=" + click +
-                                    " (states: " + clickMap.get(click) + ", " + action.state() + "). Disabling slot.");
+                    log.warn("[MenuConfig] Duplicate slot/clickType: slot={}, click={} (states: {}, {}). Disabling slot.",
+                            slot, click, clickMap.get(click), action.state());
                     disabledSlots.add(slot);
                 } else {
                     clickMap.put(click, action.state());

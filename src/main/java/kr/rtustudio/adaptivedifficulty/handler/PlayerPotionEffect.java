@@ -36,19 +36,14 @@ public class PlayerPotionEffect extends RSListener<AdaptiveDifficulty> {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerPotionEffect(EntityPotionEffectEvent e) {
+    private void onPlayerPotionEffect(EntityPotionEffectEvent e) {
         if (e.getEntity() instanceof Player player) {
-            if (e.getAction() == EntityPotionEffectEvent.Action.ADDED) {
-                Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
-                if (difficulty == null) return;
-                if (!difficulty.player().harmfulEffect()) {
-                    for (String effect : harmfulEffects) {
-                        if (effect.equalsIgnoreCase(e.getModifiedType().getName())) {
-                            e.setCancelled(true);
-                            return;
-                        }
-                    }
-                }
+            if (e.getAction() != EntityPotionEffectEvent.Action.ADDED) return;
+            Difficulty difficulty = config.get(manager.get(player.getUniqueId()));
+            if (difficulty == null) return;
+            
+            if (!difficulty.player().harmfulEffect() && harmfulEffects.stream().anyMatch(type -> type.equalsIgnoreCase(e.getModifiedType().getKey().getKey()))) {
+                e.setCancelled(true);
             }
         }
     }
