@@ -6,9 +6,11 @@ import kr.rtustudio.adaptivedifficulty.configuration.MenuConfig;
 import kr.rtustudio.adaptivedifficulty.configuration.MonsterConfig;
 import kr.rtustudio.adaptivedifficulty.configuration.serializer.EntityTypeSerializer;
 import kr.rtustudio.adaptivedifficulty.dependency.PlaceholderAPI;
-import kr.rtustudio.adaptivedifficulty.listener.*;
+import kr.rtustudio.adaptivedifficulty.handler.*;
 import kr.rtustudio.adaptivedifficulty.manager.StatusManager;
+import kr.rtustudio.configurate.model.ConfigPath;
 import kr.rtustudio.framework.bukkit.api.RSPlugin;
+import kr.rtustudio.storage.StorageType;
 import lombok.Getter;
 import org.bukkit.entity.EntityType;
 
@@ -26,13 +28,13 @@ public class AdaptiveDifficulty extends RSPlugin {
 
     @Override
     public void enable() {
-        initStorage("Difficulty");
+        registerStorage("Difficulty", StorageType.JSON);
 
-        registerConfiguration(DifficultyConfig.class, "Difficulty", builder -> {
+        registerConfiguration(DifficultyConfig.class, ConfigPath.of("Difficulty"), builder -> {
             builder.register(EntityType.class, new EntityTypeSerializer());
         });
-        registerConfiguration(MenuConfig.class, "Menu");
-        registerConfiguration(MonsterConfig.class, "Monster");
+        registerConfiguration(MenuConfig.class, ConfigPath.of("Menu"));
+        registerConfiguration(MonsterConfig.class, ConfigPath.of("Monster"));
 
         statusManager = new StatusManager(this);
 

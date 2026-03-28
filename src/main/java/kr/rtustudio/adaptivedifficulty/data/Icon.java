@@ -4,5 +4,5 @@ import kr.rtustudio.configurate.objectmapping.ConfigSerializable;
 import kr.rtustudio.configurate.objectmapping.meta.Required;
 
 @ConfigSerializable
-public record Icon(String difficulty, String description, @Required String item) {
+public record Icon(@Required String difficulty, @Required String item, int slot) {
 }

@@ -1,0 +1,4 @@
+ad:
+  name: "난이도"
+  description: "적응형 난이도 관리 명령어입니다."
+  usage: "/난이도 [난이도ID]"

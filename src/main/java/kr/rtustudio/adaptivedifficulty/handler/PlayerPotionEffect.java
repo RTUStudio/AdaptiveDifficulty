@@ -1,4 +1,4 @@
-package kr.rtustudio.adaptivedifficulty.listener;
+package kr.rtustudio.adaptivedifficulty.handler;
 
 import kr.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import kr.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;

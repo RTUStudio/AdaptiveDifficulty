@@ -1,6 +1,8 @@
 package kr.rtustudio.adaptivedifficulty.configuration;
 
-import kr.rtustudio.framework.bukkit.api.configuration.ConfigurationPart;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
+import kr.rtustudio.configurate.model.ConfigurationPart;
 import kr.rtustudio.framework.bukkit.api.platform.MinecraftVersion;
 import lombok.Getter;
 import org.bukkit.entity.Entity;
@@ -13,7 +15,7 @@ import java.util.List;
 public class MonsterConfig extends ConfigurationPart {
 
     @Getter
-    private final List<EntityType> mobs = make(new ArrayList<>(), list -> {
+    private final List<EntityType> mobs = make(new ObjectArrayList<>(), list -> {
         for (EntityType type : EntityType.values()) {
             Class<? extends Entity> clazz = type.getEntityClass();
             if (clazz == null) continue;

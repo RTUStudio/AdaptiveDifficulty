@@ -1,8 +1,10 @@
 package kr.rtustudio.adaptivedifficulty.configuration;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 import kr.rtustudio.adaptivedifficulty.data.Difficulty;
-import kr.rtustudio.adaptivedifficulty.util.LinkedMap;
-import kr.rtustudio.framework.bukkit.api.configuration.ConfigurationPart;
+import kr.rtustudio.adaptivedifficulty.utility.LinkedMap;
+import kr.rtustudio.configurate.model.ConfigurationPart;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -88,7 +90,7 @@ public class DifficultyConfig extends ConfigurationPart {
 
     @NotNull
     public List<String> getNames() {
-        return new ArrayList<>(difficulties.keySet());
+        return new ObjectArrayList<>(difficulties.keySet());
     }
 
     public boolean exists(String id) {

@@ -9,7 +9,6 @@ import kr.rtustudio.adaptivedifficulty.manager.StatusManager;
 import kr.rtustudio.framework.bukkit.api.format.ComponentFormatter;
 import kr.rtustudio.framework.bukkit.api.inventory.RSInventory;
 import kr.rtustudio.framework.bukkit.api.platform.MinecraftVersion;
-import kr.rtustudio.framework.bukkit.api.player.PlayerChat;
 import kr.rtustudio.framework.bukkit.api.registry.CustomItems;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
@@ -25,7 +24,6 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
 
     private final DifficultyConfig difficultyConfig;
     private final MenuConfig menuConfig;
-
     private final StatusManager manager;
 
     @Getter
@@ -40,16 +38,14 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
         this.menuConfig = plugin.getConfiguration(MenuConfig.class);
         this.manager = plugin.getStatusManager();
         this.player = player;
-        Component title = ComponentFormatter.mini(message().get(player, "title"));
+        Component title = ComponentFormatter.mini(message.get(player, "menu.title"));
         int size = menuConfig.getLine() * 9;
         this.inventory = createInventory(size, title);
         init();
     }
 
     private void init() {
-        for (int i = 0; i < menuConfig.getLine() * 9; i++) {
-            Icon icon = menuConfig.getIcon(i);
-            if (icon == null) continue;
+        for (Icon icon : menuConfig.getIcons()) {
             Difficulty difficulty = difficultyConfig.get(icon.difficulty());
             if (difficulty == null) continue;
             ItemStack item = CustomItems.from(icon.item());
@@ -57,18 +53,22 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
             ItemMeta meta = item.getItemMeta();
             if (meta == null) continue;
             Component displayName = ComponentFormatter.mini("<!italic><white>" + difficulty.displayName());
-            List<String> list = List.of(icon.description().split("\n"));
+            String desc = message.get(player, "menu.difficulty." + icon.difficulty() + ".description");
             if (MinecraftVersion.isPaper()) {
                 meta.displayName(displayName);
-                if (!icon.description().isEmpty())
+                if (!desc.isEmpty()) {
+                    List<String> list = List.of(desc.split("\n"));
                     meta.lore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).toList());
+                }
             } else {
                 meta.setDisplayName(ComponentFormatter.legacy(displayName));
-                if (!icon.description().isEmpty())
+                if (!desc.isEmpty()) {
+                    List<String> list = List.of(desc.split("\n"));
                     meta.setLore(list.stream().map(v -> ComponentFormatter.mini("<!italic><white>" + v)).map(ComponentFormatter::legacy).toList());
+                }
             }
             item.setItemMeta(meta);
-            inventory.setItem(i, item);
+            inventory.setItem(icon.slot(), item);
         }
     }
 
@@ -76,19 +76,21 @@ public class DifficultyMenu extends RSInventory<AdaptiveDifficulty> {
     public boolean onClick(Event<InventoryClickEvent> event, Click click) {
         if (inventory.isEmpty()) return false;
         int slot = click.slot();
-        Icon icon = menuConfig.getIcon(slot);
-        if (icon != null) {
-            String difficultyStr = icon.difficulty();
-            Difficulty difficulty = difficultyConfig.get(difficultyStr);
-            if (difficulty != null) {
-                manager.set(player.getUniqueId(), difficultyStr);
-                String change = message().get(player, "change");
-                change = change.replace("[name]", difficulty.displayName());
-                PlayerChat.of(getPlugin()).announce(player, change);
-                player.closeInventory();
+        MenuConfig.Action action = menuConfig.getAction(slot, click.type());
+        if (action != null && action.state() == MenuConfig.Action.State.SELECT) {
+            Icon icon = menuConfig.getIcon(slot);
+            if (icon != null) {
+                String difficultyStr = icon.difficulty();
+                Difficulty difficulty = difficultyConfig.get(difficultyStr);
+                if (difficulty != null) {
+                    manager.set(player.getUniqueId(), difficultyStr);
+                    String change = message.get(player, "menu.change")
+                            .replace("{name}", difficulty.displayName());
+                    notifier.announce(player, change);
+                    player.closeInventory();
+                }
             }
         }
         return false;
     }
-
 }

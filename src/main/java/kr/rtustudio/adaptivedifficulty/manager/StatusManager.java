@@ -2,10 +2,10 @@ package kr.rtustudio.adaptivedifficulty.manager;
 
 import kr.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import kr.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
-import kr.rtustudio.framework.bukkit.api.platform.JSON;
-import kr.rtustudio.framework.bukkit.api.storage.Storage;
+import kr.rtustudio.storage.JSON;
+import kr.rtustudio.storage.Storage;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -13,7 +13,7 @@ public class StatusManager {
 
     private final AdaptiveDifficulty plugin;
     private final DifficultyConfig difficultyConfig;
-    private final Map<UUID, String> map = new HashMap<>();
+    private final Map<UUID, String> map = new Object2ObjectOpenHashMap<>();
 
     public StatusManager(AdaptiveDifficulty plugin) {
         this.plugin = plugin;
@@ -26,10 +26,10 @@ public class StatusManager {
 
     public void addPlayer(UUID uuid) {
         String defaultDifficulty = difficultyConfig.getDefaultDifficulty();
-        Storage storage = plugin.getStorage();
-        storage.get("Difficulty", JSON.of("uuid", uuid.toString())).thenAccept(result -> {
+        kr.rtustudio.storage.Storage storage = plugin.getStorage("Difficulty");
+        storage.get(kr.rtustudio.storage.JSON.of("uuid", uuid.toString())).thenAccept(result -> {
             if (result == null || result.isEmpty()) {
-                storage.add("Difficulty", JSON.of("uuid", uuid.toString()).append("value", defaultDifficulty).get());
+                storage.add(kr.rtustudio.storage.JSON.of("uuid", uuid.toString()).append("value", defaultDifficulty));
                 map.put(uuid, defaultDifficulty);
             } else map.put(uuid, result.getFirst().get("value").getAsString());
         });
@@ -40,8 +40,8 @@ public class StatusManager {
     }
 
     public void set(UUID uuid, String difficulty) {
-        Storage storage = plugin.getStorage();
-        storage.set("Difficulty", JSON.of("uuid", uuid.toString()), JSON.of("value", difficulty));
+        kr.rtustudio.storage.Storage storage = plugin.getStorage("Difficulty");
+        storage.set(kr.rtustudio.storage.JSON.of("uuid", uuid.toString()), kr.rtustudio.storage.JSON.of("value", difficulty));
         map.put(uuid, difficulty);
     }
 

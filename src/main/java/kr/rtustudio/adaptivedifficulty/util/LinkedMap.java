@@ -1,4 +1,4 @@
-package kr.rtustudio.adaptivedifficulty.util;
+package kr.rtustudio.adaptivedifficulty.utility;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -4,6 +4,7 @@ import kr.rtustudio.adaptivedifficulty.AdaptiveDifficulty;
 import kr.rtustudio.adaptivedifficulty.configuration.DifficultyConfig;
 import kr.rtustudio.adaptivedifficulty.data.Difficulty;
 import kr.rtustudio.adaptivedifficulty.manager.StatusManager;
+import kr.rtustudio.framework.bukkit.api.integration.wrapper.PlaceholderArgs;
 import kr.rtustudio.framework.bukkit.api.integration.wrapper.PlaceholderWrapper;
 import org.bukkit.OfflinePlayer;
 
@@ -19,8 +20,9 @@ public class PlaceholderAPI extends PlaceholderWrapper<AdaptiveDifficulty> {
     }
 
     @Override
-    public String onRequest(OfflinePlayer offlinePlayer, String[] params) {
-        switch (params[0]) {
+    public String onRequest(OfflinePlayer offlinePlayer, PlaceholderArgs params) {
+        if (params.isEmpty()) return "ERROR";
+        switch (params.get(0)) {
             case "name" -> {
                 return manager.get(offlinePlayer.getUniqueId());
             }
